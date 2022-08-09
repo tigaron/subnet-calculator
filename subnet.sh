@@ -35,7 +35,6 @@ show_help() {
 
 	Options:
         --help              Print this help page
-        -v, --version       Print version number
         -m, --mode          Change mode of the script to run
         -i, --ip            Provide the IP address
         -c, --cidr          Provide the CIDR
@@ -864,14 +863,6 @@ case $mode in
     fi
     ;;
 2)
-    # [[ -z "${inputted_ip_address}" ]] ||
-    # [[ -z "${inputted_host_amount}" && -z "${inputted_subnet_amount}" ]] &&
-    # print_red "Mode usage example:" &&
-    # print_red "subnet -m=2 -i=192.168.141.0 -s=2" &&
-    # print_red "subnet -m=2 -i=192.168.141.0 -h=50 -t=all" &&
-    # exit 1 ||
-    # ! split_octet "${inputted_ip_address}" >/dev/null &&
-    # exit 1 ||
     if [[ -z "${inputted_ip_address}" ]] ||
        [[ -z "${inputted_host_amount}" && -z "${inputted_subnet_amount}" ]]
     then

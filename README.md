@@ -12,7 +12,6 @@ Usage: subnet [options]
 
 Options:
         --help              Print this help page
-        -v, --version       Print version number
         -m, --mode          Change mode of the script to run
         -i, --ip            Provide the IP address
         -c, --cidr          Provide the CIDR

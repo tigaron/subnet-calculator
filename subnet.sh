@@ -475,8 +475,8 @@ subnet_calculator() {
         fi
 
         subnet_bits="$((cidr - default_cidr))"
-        useable_ip_amount="$((2 ** (32 - cidr) - 2))" # amount of usable ip address in each subnet
-        if [[ "${useable_ip_amount}" -le "0" ]]
+        usable_ip_amount="$((2 ** (32 - cidr) - 2))" # amount of usable ip address in each subnet
+        if [[ "${usable_ip_amount}" -le "0" ]]
         then
             print_red "No effective host for subnet with network bits of '${cidr}'"
             return 1
@@ -496,8 +496,8 @@ subnet_calculator() {
         done
 
         cidr="$((subnet_bits + default_cidr))" # this will be the cidr notation for the subnet
-        useable_ip_amount="$((2 ** (32 - cidr) - 2))" # amount of usable ip address in each subnet
-        if [[ "${useable_ip_amount}" -eq "0" ]]
+        usable_ip_amount="$((2 ** (32 - cidr) - 2))" # amount of usable ip address in each subnet
+        if [[ "${usable_ip_amount}" -eq "0" ]]
         then
             print_red "No effective hosts for subnet with network bits of '${cidr}'"
             return 1
@@ -509,7 +509,7 @@ subnet_calculator() {
         then
             flag="subnet"
             subnet_amount="$((2 ** subnet_bits))"
-            total_hosts="$((useable_ip_amount * subnet_amount))"
+            total_hosts="$((usable_ip_amount * subnet_amount))"
             subnet_binary_list=($(subnet_binary_list "${subnet_bits}" "${sample_amount}"))
             for x in ${!subnet_binary_list[@]}
             do
@@ -856,7 +856,7 @@ case $mode in
         printf "%s" "${result}"
 		exit 1
     else
-        header="Network Address,CIDR Notation,Subnet Mask,Useable Host/Subnet,Host Address Range,Broadcast Address\n"
+        header="Network Address,CIDR Notation,Subnet Mask,Usable Hosts/Subnet,Host Address Range,Broadcast Address\n"
         printf "%s\n" "${header}" "${result}" >> "./tmp-data"
         printTable ","  "$(cat ./tmp-data)" && rm "./tmp-data"
         exit 0
@@ -898,7 +898,7 @@ case $mode in
     subnet_amount="$(printf "%s" "${result}" | cut -d',' -f4)"
     printf "%s\n" "${subnet_header}" "${subnet_result}" >> "./tmp-data"
 
-    details_header="Subnet ID,Network Address,CIDR Notation,Subnet Mask,Useable Host/Subnet,Host Address Range,Broadcast Address\n"
+    details_header="Subnet ID,Network Address,CIDR Notation,Subnet Mask,Usable Hosts/Subnet,Host Address Range,Broadcast Address\n"
     printf "%s" "${details_header}" >> "./tmp-network-data"
     
     details_cidr="$(printf "%s" "${result}" | cut -d',' -f1)"
